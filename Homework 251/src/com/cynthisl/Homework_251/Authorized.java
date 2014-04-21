@@ -14,6 +14,7 @@ public class Authorized extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.authorized);
+        //hide action bar
         ActionBar ab = getActionBar();
         ab.hide();
 
@@ -28,8 +29,8 @@ public class Authorized extends Activity {
         emailText = (TextView) findViewById(R.id.emailText);
         passwordText = (TextView) findViewById(R.id.passwordText);
 
-        emailText.setText(email);
-        passwordText.setText(pass);
+        emailText.setText("Email: "+email);
+        passwordText.setText("Password: "+pass);
 
     }
 }
