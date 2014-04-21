@@ -18,6 +18,7 @@ public class Authorized extends Activity {
         ActionBar ab = getActionBar();
         ab.hide();
 
+        //retrieve data from bundle
         Bundle b = getIntent().getExtras();
         String email = null;
         String pass = null;

@@ -3,6 +3,7 @@ package com.cynthisl.Homework_251;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -29,6 +30,48 @@ public class SignIn extends Activity {
         passwordInput = (EditText) findViewById(R.id.passwordInput);
         signInButton = (Button) findViewById(R.id.signInButton);
 
+        emailInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            /**
+             * change background on focus
+             * @param view
+             * @param hasFocus
+             */
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if(hasFocus){
+                    emailInput.setBackgroundResource(R.drawable.texteditselected);
+                    emailInput.setTextColor(Color.BLACK);
+                }
+                else{
+                    emailInput.setBackgroundResource(R.drawable.textedit);
+                }
+            }
+        });
+
+        passwordInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if(hasFocus){
+                    passwordInput.setBackgroundResource(R.drawable.texteditselected);
+                    passwordInput.setTextColor(Color.BLACK);
+                }
+                else{
+                    passwordInput.setBackgroundResource(R.drawable.textedit);
+                }
+            }
+        });
+        signInButton.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if(hasFocus){
+                    signInButton.setBackgroundResource(R.drawable.button);
+                }
+                else{
+                    signInButton.setBackgroundResource(R.drawable.button_unfocus);
+                }
+            }
+        });
+
         signInButton.setOnClickListener(new View.OnClickListener() {
             /**
              * When clicked, validate the inputs and launch next activity
@@ -36,13 +79,14 @@ public class SignIn extends Activity {
              */
             @Override
             public void onClick(View view) {
-                if(validateInputs()){
+                if (validateInputs()) {
                     launchAuthorizedActivity();
                 }
             }
         });
 
     }
+
 
     /**
      * make sure both fields are full and email is valid
