@@ -15,18 +15,26 @@
             android:inputType="textEmailAddress"
             android:ems="10"
             android:hint="Email"
-            android:id="@+id/emailInput" android:layout_gravity="center_horizontal"/>
+            android:id="@+id/emailInput"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/textedit"
+            />
     <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:ems="10"
             android:hint="Password"
-            android:id="@+id/passwordInput" android:layout_gravity="center_horizontal"/>
+            android:id="@+id/passwordInput"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/textedit"
+            />
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sign In"
-            android:id="@+id/signInButton" android:layout_gravity="center_horizontal"/>
+            android:id="@+id/signInButton"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/blue_button"/>
 </LinearLayout>
 
