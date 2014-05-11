@@ -98,13 +98,14 @@ public class MyActivity extends Activity {
 
 
     }
-    public void showDetail(){
+
+    public void showDetail(int task_id){
 
         //Intent i = new Intent(this, TaskDisplayActivity.class);
         //startActivity(i);
 
-        Fragment details = getFragmentManager().findFragmentById(R.id.taskDisplayFragment);
-
+        TaskDisplayFragment details = (TaskDisplayFragment) getFragmentManager().findFragmentById(R.id.taskDisplayFragment);
+        details.setTask(task_id);
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.taskDisplayFragment, details);
 

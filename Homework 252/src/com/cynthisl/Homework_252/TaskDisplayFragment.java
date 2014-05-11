@@ -7,15 +7,23 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 /**
  * Created by Cynthia on 5/10/2014.
  */
 public class TaskDisplayFragment extends Fragment {
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         return inflater.inflate(R.layout.fragment_taskdisplay, container, false);
+    }
+
+    public void setTask(int id){
+        TextView tv = (TextView) getView().findViewById(R.id.task_display_text);
+        Task t = getTaskFromDB(id);
+        tv.setText(t.name);
     }
 
     private Task getTaskFromDB(int id){

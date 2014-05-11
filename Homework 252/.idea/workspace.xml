@@ -46,13 +46,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="TaskListFragment.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="TaskListFragment.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/cynthisl/Homework_252/TaskListFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6550633" vertical-offset="473" max-vertical-offset="1292">
-              <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="857" max-vertical-offset="1207">
+              <caret line="46" column="55" selection-start-line="46" selection-start-column="55" selection-end-line="46" selection-end-column="55" />
               <folding>
-                <element signature="e#1614#1620#0" expanded="true" />
+                <element signature="e#1673#1679#0" expanded="true" />
+                <element signature="method#refreshList#0;class#TaskListFragment#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -61,8 +62,8 @@
       <file leaf-file-name="TaskDisplayFragment.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/cynthisl/Homework_252/TaskDisplayFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="41" max-vertical-offset="357">
-              <caret line="20" column="38" selection-start-line="20" selection-start-column="38" selection-end-line="20" selection-end-column="38" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="85" max-vertical-offset="476">
+              <caret line="22" column="26" selection-start-line="22" selection-start-column="26" selection-end-line="22" selection-end-column="26" />
               <folding>
                 <element signature="method#getTaskFromDB#0;class#TaskDisplayFragment#0" expanded="false" />
               </folding>
@@ -70,13 +71,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MyActivity.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="MyActivity.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/cynthisl/Homework_252/MyActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1301" max-vertical-offset="2091">
-              <caret line="82" column="50" selection-start-line="82" selection-start-column="50" selection-end-line="82" selection-end-column="64" />
+            <state vertical-scroll-proportion="0.39873418" vertical-offset="894" max-vertical-offset="1343">
+              <caret line="105" column="0" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="method#addNewTask#0;class#MyActivity#0" expanded="false" />
                 <element signature="e#2223#2927#0" expanded="true" />
                 <element signature="e#2900#2901#0" expanded="true" />
                 <element signature="e#2998#3223#0" expanded="true" />
@@ -119,14 +121,14 @@
         <option value="$PROJECT_DIR$/res/layout/task_list_row.xml" />
         <option value="$PROJECT_DIR$/res/layout/fragment_tasklist.xml" />
         <option value="$PROJECT_DIR$/src/com/cynthisl/Homework_252/TaskSQLiteOpenHelper.java" />
-        <option value="$PROJECT_DIR$/src/com/cynthisl/Homework_252/TaskDisplayFragment.java" />
         <option value="$PROJECT_DIR$/res/layout/fragment_taskdisplay.xml" />
         <option value="$PROJECT_DIR$/res/layout-xlarge/main.xml" />
         <option value="$PROJECT_DIR$/res/layout/new_task_prompt.xml" />
         <option value="$PROJECT_DIR$/src/com/cynthisl/Homework_252/TaskAdapter.java" />
         <option value="$PROJECT_DIR$/res/layout/main.xml" />
-        <option value="$PROJECT_DIR$/src/com/cynthisl/Homework_252/MyActivity.java" />
         <option value="$PROJECT_DIR$/src/com/cynthisl/Homework_252/TaskListFragment.java" />
+        <option value="$PROJECT_DIR$/src/com/cynthisl/Homework_252/TaskDisplayFragment.java" />
+        <option value="$PROJECT_DIR$/src/com/cynthisl/Homework_252/MyActivity.java" />
       </list>
     </option>
   </component>
@@ -489,12 +491,6 @@
           <properties />
           <option name="timeStamp" value="4" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/cynthisl/Homework_252/TaskListFragment.java</url>
-          <line>33</line>
-          <properties />
-          <option name="timeStamp" value="16" />
-        </line-breakpoint>
       </breakpoints>
       <option name="time" value="18" />
     </breakpoint-manager>
@@ -509,7 +505,8 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="170" max-vertical-offset="272">
           <caret line="16" column="1" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
           <folding>
-            <element signature="e#1614#1620#0" expanded="true" />
+            <element signature="e#1673#1679#0" expanded="true" />
+            <element signature="method#refreshList#0;class#TaskListFragment#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -672,34 +669,36 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/cynthisl/Homework_252/TaskDisplayFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="41" max-vertical-offset="357">
-          <caret line="20" column="38" selection-start-line="20" selection-start-column="38" selection-end-line="20" selection-end-column="38" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="85" max-vertical-offset="476">
+          <caret line="22" column="26" selection-start-line="22" selection-start-column="26" selection-end-line="22" selection-end-column="26" />
           <folding>
             <element signature="method#getTaskFromDB#0;class#TaskDisplayFragment#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/cynthisl/Homework_252/MyActivity.java">
+    <entry file="file://$PROJECT_DIR$/src/com/cynthisl/Homework_252/TaskListFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1301" max-vertical-offset="2091">
-          <caret line="82" column="50" selection-start-line="82" selection-start-column="50" selection-end-line="82" selection-end-column="64" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="296" max-vertical-offset="1207">
+          <caret line="46" column="55" selection-start-line="46" selection-start-column="55" selection-end-line="46" selection-end-column="55" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2223#2927#0" expanded="true" />
-            <element signature="e#2900#2901#0" expanded="true" />
-            <element signature="e#2998#3223#0" expanded="true" />
-            <element signature="e#3196#3197#0" expanded="true" />
+            <element signature="e#1673#1679#0" expanded="true" />
+            <element signature="method#refreshList#0;class#TaskListFragment#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/cynthisl/Homework_252/TaskListFragment.java">
+    <entry file="file://$PROJECT_DIR$/src/com/cynthisl/Homework_252/MyActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6550633" vertical-offset="473" max-vertical-offset="1292">
-          <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.39873418" vertical-offset="894" max-vertical-offset="1343">
+          <caret line="105" column="0" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
           <folding>
-            <element signature="e#1614#1620#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="method#addNewTask#0;class#MyActivity#0" expanded="false" />
+            <element signature="e#2223#2927#0" expanded="true" />
+            <element signature="e#2900#2901#0" expanded="true" />
+            <element signature="e#2998#3223#0" expanded="true" />
+            <element signature="e#3196#3197#0" expanded="true" />
           </folding>
         </state>
       </provider>

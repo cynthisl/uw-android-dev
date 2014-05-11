@@ -43,7 +43,8 @@ public class TaskListFragment extends ListFragment {
     @Override
     public void onListItemClick(ListView listView, View view, int position, long id) {
 
-        ((MyActivity) getActivity()).showDetail();
+        int task_id = mTaskAA.getItem(position).id;
+        ((MyActivity) getActivity()).showDetail(task_id);
 
         super.onListItemClick(listView, view, position, id);
     }
