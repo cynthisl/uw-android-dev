@@ -5,6 +5,7 @@ import android.app.ListFragment;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,28 +20,18 @@ import java.util.ArrayList;
 public class TaskListFragment extends ListFragment {
 
     public final static String TAG = "TaskListFragment";
-    private ArrayAdapter<String> mTaskAA;
+    //public ArrayAdapter<String> mTaskAA;
+    public TaskAdapter mTaskAA;
     private TaskSQLiteOpenHelper mDbHelper;
-    private SQLiteDatabase mTaskDB;
-
-    private ActionBar mActionBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Log.i("TASK_FRAGMENT", "onCreate called");
         super.onCreate(savedInstanceState);
 
-        // start empty
-        //setEmptyText("No Tasks!");
         mDbHelper = new TaskSQLiteOpenHelper(getActivity());
-        mTaskDB = mDbHelper.getWritableDatabase();
-        // Just dump some data into the List
         ArrayList<Task> tasks = getAllTasks();
-        ArrayList<String> tasks_names = new ArrayList<String>();
-        for(int i=0; i<tasks.size(); i++){
-            tasks_names.add(tasks.get(i).name);
-        }
-        mTaskDB.close();
-        mTaskAA = new ArrayAdapter<String> (getActivity(), android.R.layout.simple_list_item_1, tasks_names);
+        mTaskAA = new TaskAdapter (getActivity(), android.R.layout.simple_list_item_1, tasks);
         setListAdapter(mTaskAA);
     }
     @Override
@@ -60,20 +51,33 @@ public class TaskListFragment extends ListFragment {
     public ArrayList<Task> getAllTasks(){
         ArrayList<Task> tasks = new ArrayList<Task>();
 
+        SQLiteDatabase mTaskDB = mDbHelper.getReadableDatabase();
         Cursor c = mTaskDB.query(Task.TABLE_NAME,
-                new String[]{Task.TABLE_ROW_NAME},
+                new String[]{Task.TABLE_ROW_ID,Task.TABLE_ROW_NAME},
                 null, null, null, null, null);
 
         //c.moveToFirst();
         while(c.moveToNext()){
             Task t = new Task();
-            t.name = c.getString(0);
+            t.id = c.getInt(0);
+            t.name = c.getString(1);
             tasks.add(t);
         }
         c.close();
+        mTaskDB.close();
 
         return tasks;
     }
+
+    public void refreshList(){
+        ArrayList<Task> tl;
+        SQLiteDatabase mTaskDB = mDbHelper.getReadableDatabase();
+        tl = getAllTasks();mTaskAA = new TaskAdapter (getActivity(), android.R.layout.simple_list_item_1, tl);
+        setListAdapter(mTaskAA);
+        //mTaskAA.notifyDataSetChanged();
+    }
+
+    //use local broadcast manager
 
 
 }

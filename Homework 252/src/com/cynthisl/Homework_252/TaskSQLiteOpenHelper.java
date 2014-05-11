@@ -26,7 +26,7 @@ public class TaskSQLiteOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         String createTableQuery = "CREATE TABLE "+TABLE_NAME+
-                " ("+TABLE_ROW_ID + " INTEGER," +
+                " ("+TABLE_ROW_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
                     TABLE_ROW_NAME+" TEXT);";
 
         sqLiteDatabase.execSQL(createTableQuery);

@@ -1,6 +1,7 @@
 package com.cynthisl.Homework_252;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +19,13 @@ public class TaskAdapter extends ArrayAdapter<Task> {
     List<Task> items;
 
     public TaskAdapter(Context context, int textViewResourceId, ArrayList<Task> objects) {
-        super(context, textViewResourceId);
-        items = objects;
+        super(context, textViewResourceId, objects);
+        this.items = objects;
     }
 
     @Override
     public View getView(int pos, View convertView, ViewGroup parent){
+        //Log.i("TASK_ADAPTER", "getView called");
         View v = convertView;
 
         if(v==null){
@@ -31,14 +33,12 @@ public class TaskAdapter extends ArrayAdapter<Task> {
             v = li.inflate(R.layout.task_list_row,null);
         }
 
-        /*Task t = items.get(pos);
+        Task t = items.get(pos);
         if(t!=null){
             TextView text = (TextView) v.findViewById(R.id.task_name);
             text.setText(t.name);
-        }*/
+        }
 
-        TextView text = (TextView) v.findViewById(R.id.task_name);
-        text.setText("spam");
         return v;
     }
 }
