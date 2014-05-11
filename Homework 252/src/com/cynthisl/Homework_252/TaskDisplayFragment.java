@@ -14,17 +14,18 @@ import android.widget.TextView;
  * Created by Cynthia on 5/10/2014.
  */
 public class TaskDisplayFragment extends Fragment {
+    public Task mTask;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+        mTask = null;
         return inflater.inflate(R.layout.fragment_taskdisplay, container, false);
     }
 
     public void setTask(int id){
         TextView tv = (TextView) getView().findViewById(R.id.task_display_text);
-        Task t = getTaskFromDB(id);
-        tv.setText(t.name);
+        mTask = getTaskFromDB(id);
+        tv.setText(mTask.name);
     }
 
     private Task getTaskFromDB(int id){

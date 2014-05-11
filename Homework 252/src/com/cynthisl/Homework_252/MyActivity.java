@@ -6,6 +6,7 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.*;
@@ -29,6 +30,7 @@ public class MyActivity extends Activity {
 
         mTaskListFragment = (TaskListFragment)getFragmentManager().findFragmentById(R.id.taskListFragment);
         mTaskDescriptionFragment = (TaskDisplayFragment)getFragmentManager().findFragmentById(R.id.taskDisplayFragment);
+        mDbHelper = new TaskSQLiteOpenHelper(getApplicationContext());
 
     }
 
@@ -46,6 +48,7 @@ public class MyActivity extends Activity {
                 addNewTask();
                 return true;
             case R.id.action_delete:
+                deleteTask();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -71,7 +74,6 @@ public class MyActivity extends Activity {
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
 
-                                mDbHelper = new TaskSQLiteOpenHelper(getApplicationContext());
                                 mTaskDB = mDbHelper.getWritableDatabase();
 
                                 ContentValues cv = new ContentValues();
@@ -99,18 +101,46 @@ public class MyActivity extends Activity {
 
     }
 
+    private void deleteTask(){
+        TaskDisplayFragment task_display = (TaskDisplayFragment) getFragmentManager().findFragmentById(R.id.taskDisplayFragment);
+        if(task_display != null) {
+            Task t = task_display.mTask;
+            if(t != null){
+                // delete the task
+                mTaskDB = mDbHelper.getWritableDatabase();
+                mTaskDB.delete(Task.TABLE_NAME, "id="+t.id, null);
+                mTaskDB.close();
+
+                mTaskListFragment.refreshList();
+
+                //clear the fragment
+                TaskDisplayFragment placeholder = new TaskDisplayFragment();
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.taskDisplayFragment, placeholder)
+                        .commit();
+            }
+        }
+
+    }
     public void showDetail(int task_id){
 
-        //Intent i = new Intent(this, TaskDisplayActivity.class);
-        //startActivity(i);
+        if(mTaskDescriptionFragment != null){
+            // double paned, add to fragment
+            TaskDisplayFragment details = (TaskDisplayFragment) getFragmentManager().findFragmentById(R.id.taskDisplayFragment);
+            details.setTask(task_id);
+            getFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.taskDisplayFragment, details)
+                    .commit();
+        }
+        else {
+            // no other fragment - launch new activity
+            Intent i = new Intent(this, TaskDisplayActivity.class);
+            i.putExtra("id", task_id);
+            startActivity(i);
+        }
 
-        TaskDisplayFragment details = (TaskDisplayFragment) getFragmentManager().findFragmentById(R.id.taskDisplayFragment);
-        details.setTask(task_id);
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.taskDisplayFragment, details);
-
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        ft.commit();
 
     }
 

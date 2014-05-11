@@ -11,12 +11,12 @@
             android:layout_weight="1"
             class="com.cynthisl.Homework_252.TaskListFragment"
             />
-    <!--<fragment
+    <fragment
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:id="@+id/taskDisplayFragment"
             android:layout_weight="2"
             class="com.cynthisl.Homework_252.TaskDisplayFragment"
-            />-->
+            />
 </LinearLayout>
 
