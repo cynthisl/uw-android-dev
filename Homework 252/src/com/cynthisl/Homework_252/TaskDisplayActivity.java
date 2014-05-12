@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 /**
@@ -12,10 +15,12 @@ import android.widget.TextView;
 public class TaskDisplayActivity extends Activity {
 
     Task mTask;
+    TaskDBHelper mTaskDBHelper;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.taskdisplay);
+        mTaskDBHelper = new TaskDBHelper(this);
 
         Bundle b = getIntent().getExtras();
         int id = b.getInt("id");
@@ -23,32 +28,50 @@ public class TaskDisplayActivity extends Activity {
 
     }
 
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        menu.findItem(R.id.menu_action_delete).setVisible(true);
+        return true;
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater mi = getMenuInflater();
+        mi.inflate(R.menu.activity_main_actions, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch(item.getItemId()){
+            case R.id.menu_action_delete:
+                deleteTask();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    /**
+     * set the task id for this activity.
+     * if no task set, this activity will be blank.
+     * @param id
+     */
     public void setTask(int id){
         TextView tv = (TextView) findViewById(R.id.task_display_text);
-        mTask = getTaskFromDB(id);
+        mTask = mTaskDBHelper.getTaskFromID(id);
         tv.setText(mTask.name);
     }
 
-    private Task getTaskFromDB(int id){
-
-        Task t = new Task();
-        TaskSQLiteOpenHelper mDbHelper = new TaskSQLiteOpenHelper(this);
-        SQLiteDatabase mTaskDB = mDbHelper.getReadableDatabase();
-
-        Cursor c = mTaskDB.query(Task.TABLE_NAME,
-                new String[]{Task.TABLE_ROW_ID, Task.TABLE_ROW_NAME},
-                "id=" + id,
-                null, null, null, null);
-
-
-        while(c.moveToNext()){
-            t.id = c.getInt(0);
-            t.name = c.getString(1);
+    /**
+     * deletes the task of this activity
+     */
+    public void deleteTask(){
+        if(mTask != null){
+            mTaskDBHelper.deleteTask(mTask.id);
+            finish();
         }
-        c.close();
-
-        return t;
-
     }
+
 }

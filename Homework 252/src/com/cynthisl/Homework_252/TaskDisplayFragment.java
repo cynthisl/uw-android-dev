@@ -15,38 +15,23 @@ import android.widget.TextView;
  */
 public class TaskDisplayFragment extends Fragment {
     public Task mTask;
+    TaskDBHelper mTaskDBHelper;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mTask = null;
+        mTaskDBHelper = new TaskDBHelper(getActivity());
         return inflater.inflate(R.layout.fragment_taskdisplay, container, false);
     }
 
+    /**
+     * sets task displayed by this fragment
+     * @param id task id
+     */
     public void setTask(int id){
         TextView tv = (TextView) getView().findViewById(R.id.task_display_text);
-        mTask = getTaskFromDB(id);
+        mTask = mTaskDBHelper.getTaskFromID(id);
         tv.setText(mTask.name);
     }
 
-    private Task getTaskFromDB(int id){
-
-        Task t = new Task();
-        TaskSQLiteOpenHelper mDbHelper = new TaskSQLiteOpenHelper(getActivity());
-        SQLiteDatabase mTaskDB = mDbHelper.getReadableDatabase();
-
-        Cursor c = mTaskDB.query(Task.TABLE_NAME,
-                new String[]{Task.TABLE_ROW_ID, Task.TABLE_ROW_NAME},
-                "id=" + id,
-                null, null, null, null);
-
-
-        while(c.moveToNext()){
-            t.id = c.getInt(0);
-            t.name = c.getString(1);
-        }
-        c.close();
-
-        return t;
-
-    }
 }

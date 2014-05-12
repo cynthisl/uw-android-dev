@@ -46,21 +46,4 @@ public class TaskSQLiteOpenHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    /*public ArrayList<Task> getAllTasks(){
-        ArrayList<Task> tasks = new ArrayList<Task>();
-        this.getWritableDatabase();
-
-        Cursor c = mTasksDB.query(TABLE_NAME,
-                new String[]{TABLE_ROW_ID, TABLE_ROW_NAME},
-                null, null, null, null, null);
-
-        c.moveToFirst();
-        while(!c.isAfterLast()){
-            Task t = new Task();
-            t.name = c.getString(0);
-            tasks.add(t);
-        }
-
-        return tasks;
-    }*/
 }

@@ -2,23 +2,19 @@ package com.cynthisl.Homework_252;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
-import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.*;
 import android.widget.EditText;
 
 public class MyActivity extends Activity {
 
-
-    private TaskSQLiteOpenHelper mDbHelper;
-    private SQLiteDatabase mTaskDB;
     TaskListFragment mTaskListFragment;
     TaskDisplayFragment mTaskDescriptionFragment;
+    TaskDBHelper mTaskDBHelper;
+    boolean isDoublePaned;
+
 
     /**
      * Called when the activity is first created.
@@ -30,8 +26,29 @@ public class MyActivity extends Activity {
 
         mTaskListFragment = (TaskListFragment)getFragmentManager().findFragmentById(R.id.taskListFragment);
         mTaskDescriptionFragment = (TaskDisplayFragment)getFragmentManager().findFragmentById(R.id.taskDisplayFragment);
-        mDbHelper = new TaskSQLiteOpenHelper(getApplicationContext());
+        // set variable for if double pane or not
+        if(mTaskDescriptionFragment != null){
+            isDoublePaned = true;
+        }
+        else{
+            isDoublePaned = false;
+        }
 
+        mTaskDBHelper = new TaskDBHelper(this);
+    }
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        if(isDoublePaned){
+            // both buttons if two pane
+            menu.findItem(R.id.menu_action_delete).setVisible(true);
+            menu.findItem(R.id.menu_action_new).setVisible(true);
+        }
+        else{
+            // only add, doesn't make sense to delete on one pane
+            menu.findItem(R.id.menu_action_new).setVisible(true);
+        }
+        return true;
     }
 
     @Override
@@ -44,10 +61,10 @@ public class MyActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch(item.getItemId()){
-            case R.id.action_new:
+            case R.id.menu_action_new:
                 addNewTask();
                 return true;
-            case R.id.action_delete:
+            case R.id.menu_action_delete:
                 deleteTask();
                 return true;
             default:
@@ -55,6 +72,11 @@ public class MyActivity extends Activity {
         }
     }
 
+    @Override
+    protected void onRestart(){
+        super.onRestart();
+        mTaskListFragment.refreshList();
+    }
     private void addNewTask(){
 
         LayoutInflater li = LayoutInflater.from(this);
@@ -73,15 +95,11 @@ public class MyActivity extends Activity {
                 .setPositiveButton("OK",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
+                                Task t = new Task();
+                                t.name = userInput.getText().toString();
+                                mTaskDBHelper.addTask(t);
 
-                                mTaskDB = mDbHelper.getWritableDatabase();
-
-                                ContentValues cv = new ContentValues();
-                                cv.put(Task.TABLE_ROW_NAME, userInput.getText().toString());
-
-                                mTaskDB.insert(Task.TABLE_NAME, null, cv);
-                                mTaskDB.close();
-
+                                // refresh task list
                                 mTaskListFragment.refreshList();
                             }
                         })
@@ -102,30 +120,31 @@ public class MyActivity extends Activity {
     }
 
     private void deleteTask(){
-        TaskDisplayFragment task_display = (TaskDisplayFragment) getFragmentManager().findFragmentById(R.id.taskDisplayFragment);
-        if(task_display != null) {
-            Task t = task_display.mTask;
-            if(t != null){
-                // delete the task
-                mTaskDB = mDbHelper.getWritableDatabase();
-                mTaskDB.delete(Task.TABLE_NAME, "id="+t.id, null);
-                mTaskDB.close();
+        if(isDoublePaned) {
+            TaskDisplayFragment task_display = (TaskDisplayFragment) getFragmentManager().findFragmentById(R.id.taskDisplayFragment);
+            if (task_display != null) {
+                Task t = task_display.mTask;
+                if (t != null) {
+                    // delete the task
+                    mTaskDBHelper.deleteTask(t.id);
+                    mTaskListFragment.refreshList();
 
-                mTaskListFragment.refreshList();
-
-                //clear the fragment
-                TaskDisplayFragment placeholder = new TaskDisplayFragment();
-                getFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.taskDisplayFragment, placeholder)
-                        .commit();
+                    //clear the fragment
+                    TaskDisplayFragment placeholder = new TaskDisplayFragment();
+                    getFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.taskDisplayFragment, placeholder)
+                            .commit();
+                }
             }
         }
+        //if not double paned, nothing selected
 
     }
+
     public void showDetail(int task_id){
 
-        if(mTaskDescriptionFragment != null){
+        if(isDoublePaned){
             // double paned, add to fragment
             TaskDisplayFragment details = (TaskDisplayFragment) getFragmentManager().findFragmentById(R.id.taskDisplayFragment);
             details.setTask(task_id);
